@@ -2,7 +2,7 @@
 
 **SyntaxGenerator** to narzędzie dydaktyczne służące do nauki języku, które pozwala na tworzenie poprawnych gramatycznie zdań. Program prowadzi użytkownika krok po kroku przez proces budowania zdania w formacie SVO (podmiot-orzeczenie-dopełnienie), zapewniając zgodność gramatyczną (rodzaj, liczba, osoba). Użytkownik ma możliwość wyboru podmiotu (zaimka lub frazy rzeczownikowej), czasownika oraz dopełnienia, a także opcjonalnych elementów, takich jak przymiotniki, zaimki dzierżawcze czy rodzajniki.
 
-**Struktura Aplikacji**
+## **Struktura Aplikacji**
 
 Projekt składa się z frontendu napisanego w React, który zapewnia interfejs użytkownika, oraz backendu w Pythonie z wykorzystaniem frameworka Flask, który obsługuje logikę generowania zdań.
 
@@ -13,4 +13,21 @@ Plik **routes.py** odpowiada za definicję endpointów API, które są wykorzyst
 - **endpoint POST: /generate_sentence** - przyjmuje dane od użytkownika w formacie JSON i przekazuje je do funkcji generate_sentence w celu wygenerowania zdania
 
 Funkcja **generate_sentence** w pliku senetence_generator.py buduje zdanie zgodne z gramatyką Interlingua na podstawie wybranych przez użytkownika komponentów.
-Plik data.py zawiera dane lingwistyczne potrzebne do generowania zdań.
+
+Plik **data.py** zawiera dane lingwistyczne potrzebne do generowania zdań.
+
+## Uruchomienie
+1. Sklonowanie repozytorium projektu
+```
+git clone https://github.com/ajochymczyk/syntaxGenerator.git
+```
+2. Uruchomienie backendu
+```
+cd syntaxGenerator/backend
+python main.py
+```
+3. Uruchomienie frontendu
+```
+cd syntaxGenerator/frontend/syntax-generator
+npm run dev
+```
