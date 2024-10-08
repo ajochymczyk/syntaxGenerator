@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function Home() {
-  const [subjectType, setSubjectType] = useState(""); // "pronoun" lub "nounPhrase"
-  const [numberType, setNumberType] = useState(""); // "singular" lub "plural"
+  const [subjectType, setSubjectType] = useState("");
+  const [numberType, setNumberType] = useState("");
   const [subject, setSubject] = useState("");
   const [verb, setVerb] = useState("");
   const [object_, setObject] = useState("");
@@ -14,10 +14,11 @@ export default function Home() {
   const [pronouns, setPronouns] = useState({ singular: [], plural: [] });
   const [adjectives, setAdjectives] = useState([]);
   const [determiners, setDeterminers] = useState([]);
-  const [useDeterminer, setUseDeterminer] = useState(""); // "TAK" lub "NIE"
+  const [useDeterminer, setUseDeterminer] = useState("");
   const [determinerType, setDeterminerType] = useState("");
   const [selectedDeterminer, setSelectedDeterminer] = useState("");
-
+  const [useNegation, setUseNegation] = useState("");
+  const [tense, setTense] = useState("");
   useEffect(() => {
     const fetchWords = async () => {
       const [
@@ -66,6 +67,8 @@ export default function Home() {
         verb,
         object_,
         determiner: selectedDeterminer,
+        negation: useNegation,
+        tense,
       }),
     });
 
@@ -379,6 +382,53 @@ export default function Home() {
                 </option>
               ))}
             </select>
+          </div>
+          {/* Pytanie o negację */}
+          <div className="col-md-12">
+            <label className="form-label">Czy dodać negację?</label>
+            <div>
+              <input
+                type="radio"
+                id="negationYes"
+                name="useNegation"
+                value="True"
+                onChange={(e) => setUseNegation(e.target.value)}
+              />
+              <label htmlFor="negationYes" className="ms-2">
+                Tak
+              </label>
+            </div>
+          </div>
+
+          {/* Wybór czasu */}
+          <div className="col-md-12">
+            <label className="form-label">
+              Wybierz czas (domyślnie teraźniejszy):
+            </label>
+            <div>
+              <input
+                type="radio"
+                id="past"
+                name="tense"
+                value="past"
+                onChange={(e) => setTense(e.target.value)}
+              />
+              <label htmlFor="past" className="ms-2">
+                Przeszły
+              </label>
+
+              <input
+                type="radio"
+                id="future"
+                name="tense"
+                value="future"
+                onChange={(e) => setTense(e.target.value)}
+                className="ms-3"
+              />
+              <label htmlFor="future" className="ms-2">
+                Przyszły
+              </label>
+            </div>
           </div>
 
           <div className="col-md-4 d-flex align-items-end">
