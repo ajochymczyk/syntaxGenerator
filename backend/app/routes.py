@@ -11,11 +11,16 @@ def generate_sentence_endpoint():
     subject = data.get("subject")
     verb = data.get("verb")
     object_ = data.get("object_")
+    determiner = data.get('determiner', "")
+    adjective = data.get('adjective', "")
+    tense = data.get('tense', "present")
+    negation = data.get('negation', False)
 
     if not (subject or verb or object_):
         return jsonify({"error": "Brak danych!"}), 400
 
-    sentence = generate_sentence(subject, verb, object_)
+    sentence = generate_sentence(subject, verb, object_, determiner, adjective, tense, negation)
+
 
     return jsonify({"sentence": sentence})
 
