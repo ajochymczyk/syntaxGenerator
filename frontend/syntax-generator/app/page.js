@@ -1,118 +1,34 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-const subjects = [
-  "amigo",
-  "casa",
-  "libro",
-  "musica",
-  "jardin",
-  "lingua",
-  "familia",
-  "sol",
-  "luna",
-  "aqua",
-  "flor",
-  "pais",
-  "tiempo",
-  "historia",
-  "natura",
-  "amor",
-  "montania",
-  "oceano",
-  "animal",
-  "arbo",
-  "fructo",
-  "vento",
-  "paisage",
-  "umbra",
-  "comida",
-  "planeta",
-  "energia",
-  "solitudine",
-  "memora",
-  "spirito",
-  "arte",
-  "musica",
-  "vita",
-  "pace",
-  "guerra",
-  "idea",
-  "mundo",
-  "gente",
-  "infante",
-  "nocte",
-  "sonio",
-  "continente",
-  "vehiculo",
-  "aventura",
-  "silva",
-  "parola",
-  "festa",
-  "planeta",
-  "fortuna",
-  "libertate",
-];
 
-const verbs = [
-  "amar",
-  "parlar",
-  "scriber",
-  "leger",
-  "audir",
-  "vider",
-  "esser",
-  "haber",
-  "dar",
-  "prender",
-  "portar",
-  "laborar",
-  "jocar",
-  "pensar",
-  "sperar",
-  "caminar",
-  "saltar",
-  "nadar",
-  "dormir",
-  "vender",
-  "comprar",
-  "aperir",
-  "cluder",
-  "apprender",
-  "comprender",
-  "estudiar",
-  "finir",
-  "iniciar",
-  "aperception",
-  "construer",
-  "destruer",
-  "percer",
-  "cuisinar",
-  "lavar",
-  "responder",
-  "viver",
-  "morir",
-  "changer",
-  "inventar",
-  "describer",
-  "reguardar",
-  "comparar",
-  "guidar",
-  "salvar",
-  "celebrar",
-  "enviar",
-  "reciper",
-  "feriar",
-  "examinar",
-  "cantar",
-];
-
-const objects = ["kota", "psa", "królika"];
 export default function Home() {
   const [subject, setSubject] = useState("");
   const [verb, setVerb] = useState("");
   const [object_, setObject] = useState("");
   const [sentence, setSentence] = useState("");
+  const [verbs, setVerbs] = useState([]);
+  const [subjects, setSubjects] = useState([]);
+
+  useEffect(() => {
+    const fetchVerbs = async () => {
+      const response = await fetch("http://localhost:5000/verbs");
+      const data = await response.json();
+      setVerbs(data);
+    };
+
+    fetchVerbs();
+  }, []);
+
+  useEffect(() => {
+    const fetchSubjects = async () => {
+      const response = await fetch("http://localhost:5000/nouns");
+      const data = await response.json();
+      setSubjects(data);
+    };
+
+    fetchSubjects();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -151,7 +67,7 @@ export default function Home() {
               onChange={(e) => setSubject(e.target.value)}
               required
             >
-              <option value="">Wybierz podmiot...</option>
+              <option value="">Wybierz Podmiot...</option>
               {subjects.map((s, index) => (
                 <option key={index} value={s}>
                   {s}
@@ -179,19 +95,14 @@ export default function Home() {
 
           <div className="col-md-4">
             <label className="form-label">Dopełnienie</label>
-            <select
-              className="form-select"
+            <input
+              type="text"
+              className="form-control"
               value={object_}
               onChange={(e) => setObject(e.target.value)}
+              placeholder="Wpisz dopełnienie..."
               required
-            >
-              <option value="">Wybierz dopełnienie...</option>
-              {objects.map((o, index) => (
-                <option key={index} value={o}>
-                  {o}
-                </option>
-              ))}
-            </select>
+            />
           </div>
 
           <div className="col-12">
