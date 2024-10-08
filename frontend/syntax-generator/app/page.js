@@ -19,7 +19,7 @@ export default function Home() {
       body: JSON.stringify({
         subject,
         verb,
-        object_: object_,
+        object_,
       }),
     });
 

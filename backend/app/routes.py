@@ -10,7 +10,7 @@ def generate_sentence_endpoint():
 
     subject = data.get("subject")
     verb = data.get("verb")
-    object_ = data.get("object")
+    object_ = data.get("object_")
 
     if not (subject or verb or object_):
         return jsonify({"error": "Brak danych!"}), 400
