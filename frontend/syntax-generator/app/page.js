@@ -14,6 +14,9 @@ export default function Home() {
   const [pronouns, setPronouns] = useState({ singular: [], plural: [] });
   const [adjectives, setAdjectives] = useState([]);
   const [determiners, setDeterminers] = useState([]);
+  const [useDeterminer, setUseDeterminer] = useState(""); // "TAK" lub "NIE"
+  const [determinerType, setDeterminerType] = useState("");
+  const [selectedDeterminer, setSelectedDeterminer] = useState("");
 
   useEffect(() => {
     const fetchWords = async () => {
@@ -62,6 +65,7 @@ export default function Home() {
         subject,
         verb,
         object_,
+        determiner: selectedDeterminer,
       }),
     });
 
@@ -171,6 +175,84 @@ export default function Home() {
                 {pronouns[numberType].map((pronoun, index) => (
                   <option key={index} value={pronoun}>
                     {pronoun}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+          {/* Pytanie o użycie określnika */}
+          {subjectType === "nounPhrase" && (
+            <div className="col-md-12">
+              <label className="form-label">
+                Czy chcesz użyć określnika przed rzeczownikiem?
+              </label>
+              <div>
+                <input
+                  type="radio"
+                  id="determinerYes"
+                  name="useDeterminer"
+                  value="yes"
+                  onChange={(e) => setUseDeterminer(e.target.value)}
+                  required
+                />
+                <label htmlFor="determinerYes" className="ms-2">
+                  Tak
+                </label>
+
+                <input
+                  type="radio"
+                  id="determinerNo"
+                  name="useDeterminer"
+                  value="no"
+                  onChange={(e) => {
+                    setUseDeterminer(e.target.value);
+                    setDeterminerType("");
+                    setSelectedDeterminer("");
+                  }}
+                  className="ms-3"
+                  required
+                />
+                <label htmlFor="determinerNo" className="ms-2">
+                  Nie
+                </label>
+              </div>
+            </div>
+          )}
+
+          {/* Wybór rodzaju określnika */}
+          {useDeterminer === "yes" && (
+            <div className="col-md-12">
+              <label className="form-label">Wybierz rodzaj określnika:</label>
+              <select
+                className="form-select"
+                value={determinerType}
+                onChange={(e) => setDeterminerType(e.target.value)}
+                required
+              >
+                <option value="">Wybierz rodzaj określnika...</option>
+                {Object.keys(determiners).map((type, index) => (
+                  <option key={index} value={type}>
+                    {type}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+
+          {/* Wybór konkretnego określnika */}
+          {determinerType && (
+            <div className="col-md-12">
+              <label className="form-label">Wybierz określnik:</label>
+              <select
+                className="form-select"
+                value={selectedDeterminer}
+                onChange={(e) => setSelectedDeterminer(e.target.value)}
+                required
+              >
+                <option value="">Wybierz określnik...</option>
+                {determiners[determinerType].map((determiner, index) => (
+                  <option key={index} value={determiner}>
+                    {determiner}
                   </option>
                 ))}
               </select>
