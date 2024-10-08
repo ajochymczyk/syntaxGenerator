@@ -1,7 +1,19 @@
 "use client";
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+const subjects = ["Ala", "Ola", "Gruszka", "Komputer"];
+const verbs = [
+  "biegać",
+  "skakać",
+  "czytać",
+  "pisać",
+  "jeść",
+  "pić",
+  "grać",
+  "słuchać",
+  "oglądać",
+];
+const objects = ["kota", "psa", "królika"];
 export default function Home() {
   const [subject, setSubject] = useState("");
   const [verb, setVerb] = useState("");
@@ -39,38 +51,53 @@ export default function Home() {
         <form onSubmit={handleSubmit} className="row g-3">
           <div className="col-md-4">
             <label className="form-label">Podmiot</label>
-            <input
-              type="text"
-              className="form-control"
+            <select
+              className="form-select"
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
-              placeholder="Wpisz podmiot..."
               required
-            />
+            >
+              <option value="">Wybierz podmiot...</option>
+              {subjects.map((s, index) => (
+                <option key={index} value={s}>
+                  {s}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="col-md-4">
             <label className="form-label">Czasownik</label>
-            <input
-              type="text"
-              className="form-control"
+            <select
+              className="form-select"
               value={verb}
               onChange={(e) => setVerb(e.target.value)}
-              placeholder="Wpisz czasownik..."
               required
-            />
+            >
+              <option value="">Wybierz czasownik...</option>
+              {verbs.map((v, index) => (
+                <option key={index} value={v}>
+                  {v}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="col-md-4">
             <label className="form-label">Dopełnienie</label>
-            <input
-              type="text"
-              className="form-control"
+            <select
+              className="form-select"
               value={object_}
               onChange={(e) => setObject(e.target.value)}
-              placeholder="Wpisz dopełnienie..."
               required
-            />
+            >
+              <option value="">Wybierz dopełnienie...</option>
+              {objects.map((o, index) => (
+                <option key={index} value={o}>
+                  {o}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="col-12">
