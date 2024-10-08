@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from .sentence_generator import generate_sentence
-from .data import verbs, nouns
+from .data import *
 api = Blueprint("api", __name__)
 
 
@@ -26,6 +26,20 @@ def get_verbs():
 
 
 @api.route("/nouns", methods=["GET"])
-def get_subjects():
+def get_nouns():
     return jsonify(nouns)
 
+
+@api.route("/pronouns", methods=["GET"])
+def get_pronouns():
+    return jsonify(pronouns)
+
+
+@api.route("/adjectives", methods=["GET"])
+def get_adjectives():
+    return jsonify(adjectives)
+
+
+@api.route("/determiners", methods=["GET"])
+def get_determiners():
+    return jsonify(determiners)
